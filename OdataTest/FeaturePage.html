@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="http://cdn.kendostatic.com/2014.2.716/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="http://cdn.kendostatic.com/2014.2.716/styles/kendo.rtl.min.css" rel="stylesheet" />
+    <link href="http://cdn.kendostatic.com/2014.2.716/styles/kendo.silver.min.css" rel="stylesheet" />
+    <link href="http://cdn.kendostatic.com/2014.2.716/styles/kendo.silver.mobile.min.css" rel="stylesheet" />
+    <link href="http://cdn.kendostatic.com/2014.2.716/styles/kendo.dataviz.min.css" rel="stylesheet" />
+    <link href="http://cdn.kendostatic.com/2014.2.716/styles/kendo.dataviz.silver.min.css" rel="stylesheet" />
+
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://subev/kendo/dist/js/kendo.web.js"></script>
+
+</head>
+<body>
+    <div id="grid"></div>
+    <div id="employees"></div>
+
+    <script>
+        $(document).ready(function () {
+            $("#grid").kendoGrid({
+                dataSource: {
+                    type: "odata-v4",
+                    transport: {
+                        read: {
+                            url: "/odata/Products",
+                            data: {
+                                $expand: "Category"
+                            }                            
+                        },
+                        update: {
+                            url: function (data) {
+                                return "/odata/Products(" + data.ProductID + ")";
+                            }
+                        }
+                    },                   
+                    schema: {
+                        model: {
+                            id: "Products",
+                            fields: {
+                                UnitPrice: { type: "number" },
+                                SupplierID: { type: "number" },
+                                UnitsInStock: { type: "number" },
+                                UnitsOnOrder: { type: "number" },
+                                ProductID: { type: "number" },
+                                Discontinued: { type: "boolean" },
+                                ProductID: { type: "number" }
+                            }
+                        }
+
+                    },
+                    pageSize: 10,
+                    serverFiltering: true,
+                    serverPaging: true,
+                    serverSorting: true
+                },
+                height: 550,
+                groupable: true,
+                sortable: true,
+                filterable: {
+                    mode: "row"
+                },
+                pageable: {
+                    refresh: true,
+                    pageSizes: true,
+                    buttonCount: 5
+                },
+                columns: [{
+                    field: "ProductName",
+                    width: 300
+                }, {
+                    field: "ProductID"
+                }, 
+                "UnitPrice", "UnitsOnOrder", "Discontinued", {command: "edit" }
+                ],
+                editable: "inline"
+            });
+
+
+
+            $("#employees").kendoGrid({
+                dataSource: {
+                    type: "odata-v4",
+                    transport: {
+                        read: {
+                            url: "/odata/Employees"                            
+                        },
+                        update: {
+                            url: function (data) {
+                                return "/odata/Employees(" + data.EmployeeID + ")";
+                            }
+                        }
+                    },
+                    schema: {
+                        model: {
+                            id: "EmployeeID",
+                            fields: {
+                                Firstname: { type: "string" },
+                                BirthDate: { type: "date" },
+                                EmployeeID: { type: "number" }
+                            }
+                        }
+
+                    },
+                    pageSize: 10,
+                    serverFiltering: true,
+                    serverPaging: true,
+                    serverSorting: true
+                },
+                height: 550,
+                
+                groupable: true,
+                sortable: true,
+                filterable: {
+                    mode: "row"
+                },
+                pageable: {
+                    refresh: true,
+                    pageSizes: true,
+                    buttonCount: 5
+                },
+                columns: [
+                    { field: "FirstName", width: 300 },
+                    { field: "LastName", width: 300 },
+                    { field: "BirthDate", width: 300, format: "{0: dd/mm/yyyy}" },
+                    {  command: "edit" }
+                ],
+                editable: "inline"
+            });
+        });
+
+    </script>
+</body>
+</html>
