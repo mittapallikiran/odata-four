@@ -6,4 +6,7 @@
 *.pdb
 
 bin/
+packages/**/
+!packages/repositories.config
+obj/
 obj/
