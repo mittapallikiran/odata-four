@@ -1,0 +1,8 @@
+*.dll
+*.tmp
+*.suo
+*.swp
+*.user
+*.pdb
+
+**/bin
