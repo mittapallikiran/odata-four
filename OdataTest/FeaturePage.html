@@ -18,6 +18,8 @@
     <script src="http://subev/kendo/src/kendo.data.odata.js"></script>
     <script src="http://subev/kendo/src/kendo.columnsorter.js"></script>
     <script src="http://subev/kendo/src/kendo.userevents.js"></script>
+    <script src="http://subev/kendo/src/kendo.editable.js"></script>
+    <script src="http://subev/kendo/src/kendo.validator.js"></script>
     <script src="http://subev/kendo/src/kendo.draganddrop.js"></script>
     <script src="http://subev/kendo/src/kendo.groupable.js"></script>
     <script src="http://subev/kendo/src/kendo.resizable.js"></script>
@@ -67,15 +69,14 @@
                     },                   
                     schema: {
                         model: {
-                            id: "Products",
+                            id: "ProductID",
                             fields: {
                                 UnitPrice: { type: "number" },
                                 SupplierID: { type: "number" },
                                 UnitsInStock: { type: "number" },
                                 UnitsOnOrder: { type: "number" },
                                 ProductID: { type: "number" },
-                                Discontinued: { type: "boolean" },
-                                ProductID: { type: "number" }
+                                Discontinued: { type: "boolean" }
                             }
                         }
 
@@ -102,7 +103,7 @@
                 }, {
                     field: "ProductID"
                 }, 
-                "UnitPrice", "UnitsOnOrder", "Discontinued", {command: "edit" }
+                "UnitPrice", "UnitsOnOrder", "Discontinued", { command: "edit" }
                 ],
                 editable: "inline"
             });
